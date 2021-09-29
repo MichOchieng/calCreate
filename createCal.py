@@ -3,19 +3,8 @@ from datetime import datetime
 import sys,tempfile,os
 
 class MyCalendar:
-    c  = Calendar()
-    eList = []
-
-    EVENT_START       = 'CFUR'
-    EVENT_END         = '*'
-    EVENT_DESCRIPTION = ''
-
-    # Switch statement alternative
-    #   1 = Title/Summary
-    #   2 = Description
-    #   3 = dtstart
-    #   4 = dtend
-
+    cal  = Calendar()
+    
     def readFile(self):
         try:
             with open(sys.argv[1],'r',encoding='utf-8',errors='ignore') as file:
@@ -25,20 +14,42 @@ class MyCalendar:
             sys.exit()
         
         EVENT_DESCRIPTION = ''
+        EVENT_END         = '*'
+        titleSearch       = False
+        descriptionSearch = False
+        event = Event()
+        
+        for i,line in enumerate(lines):
 
-        e  = Event()
-        for line in lines:
-            if(self.EVENT_START in line.splitlines()[0] and '\n' not in line.splitlines()[0] and 'Playlist' in line.splitlines()[0]): # Bandaid fix for grabbing the correct titles
-                e.add('summary',line)
-            elif(self.EVENT_END not in line):
-                EVENT_DESCRIPTION += line # Adds desc text to event desc up until seperator
-            elif(self.EVENT_END in line):
-                e.add('description', self.EVENT_DESCRIPTION)
-                self.c.add_component(e)
-        directory = tempfile.mkdtemp()
-        with open(sys.argv[2],'wb') as file2:
-                file2.write(self.c.to_ical())
-                file2.close()
+            if(i == 0): # Grabs the very first line of the file (assumes the first line will be an event title)
+                # Adds title to event
+                event.add('summary',line)
+                # Indicates that a title was found and that a description is the next priority
+                descriptionSearch = True
+                titleSearch       = False
+            elif(titleSearch):
+                event.add('summary',line) # Adds title to event
+                # Indicates that a title was found and that a description is the next priority
+                descriptionSearch = True
+                titleSearch       = False
+            elif(descriptionSearch and EVENT_END not in line):
+                # Will add each line of the description to a variable up until the event seperator (*) for later use
+                EVENT_DESCRIPTION += line
+            elif(EVENT_END in line):
+                # Event seperator has been found
+                descriptionSearch = False   # No longer parsing description
+                titleSearch       = True    # Indicates that the next target is an event title
+                # Add description to the event
+                event.add('description', EVENT_DESCRIPTION)
+                EVENT_DESCRIPTION = '' # Clear description temp variable
+                # Push event to calendar
+                self.cal.add_component(event)
+    
+    def createFile(self):
+        with open(sys.argv[2],'wb') as calFile:
+            calFile.write(self.cal.to_ical())
+            calFile.close()
 
 mc = MyCalendar()
 mc.readFile()   
+mc.createFile()
