@@ -12,6 +12,9 @@ class MyCalendar:
         except OSError:
             print("Something went wrong reading the file!")
             sys.exit()
+        except IndexError:
+            print("Don't forget to add an input file as an argument!")
+            sys.exit()
         
         EVENT_DESCRIPTION = ''
         EVENT_END         = '*'
@@ -44,11 +47,16 @@ class MyCalendar:
                 EVENT_DESCRIPTION = '' # Clear description temp variable
                 # Push event to calendar
                 self.cal.add_component(event)
+                event = Event() # Fixes issue of having one large event instead of seperate indivdual events
     
     def createFile(self):
-        with open(sys.argv[2],'wb') as calFile:
-            calFile.write(self.cal.to_ical())
-            calFile.close()
+        try:
+            with open(sys.argv[2],'wb') as calFile:
+                calFile.write(self.cal.to_ical())
+                calFile.close()
+        except IndexError:
+            print("Don't forget to add an output file as the last argument!")
+            sys.exit()
 
 mc = MyCalendar()
 mc.readFile()   
