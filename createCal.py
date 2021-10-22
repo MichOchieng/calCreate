@@ -5,7 +5,7 @@ import sys,os
 from icalendar.cal import Todo
 
 # Todo    
-#     Add prompt for event times
+#     Add prompt for event times (Maybe have start time and duration instead of start time and end time?)
 #         Prompt each event
 #         After last event reached determine how long to repeat the events (over a week,month etc)
             # Add rrule to event
@@ -64,6 +64,9 @@ class MyCalendar:
                     # Add time to event
                 event.add('dtstart', EVENT_STARTTIME)
                 event.add('dtend', EVENT_ENDTIME )
+
+                # Prompt for event recurrance
+
                 # Push event to calendar
                 self.cal.add_component(event)
                 event = Event() # Fixes issue of having one large event instead of seperate indivdual events
