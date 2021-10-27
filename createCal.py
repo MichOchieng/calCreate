@@ -1,5 +1,5 @@
 from icalendar import Calendar, Event
-from datetime import datetime
+from datetime import date, datetime
 import sys,os
 
 from icalendar.cal import Todo
@@ -59,8 +59,8 @@ class MyCalendar:
                 EVENT_DESCRIPTION = '' # Clear description temp variable
 
                 # Prompt for event timings
-                EVENT_STARTTIME = self.enterTime(EVENT_NAME)
-                EVENT_ENDTIME   = self.enterTime(EVENT_NAME)
+                EVENT_STARTTIME = datetime.strptime(self.enterTime(EVENT_NAME),'%y/%m/%d %H:%M:%S')
+                EVENT_ENDTIME   = datetime.strptime(self.enterTime(EVENT_NAME),'%y/%m/%d %H:%M:%S')
                     # Add time to event
                 event.add('dtstart', EVENT_STARTTIME)
                 event.add('dtend', EVENT_ENDTIME )
@@ -73,7 +73,7 @@ class MyCalendar:
     
     
     def enterTime(self,eventName):
-        print("Enter event start/end datetime in the format YYYY-MM-DD HH:MM:SS for " + eventName)
+        print("Enter event start/end datetime in the format YY/MM/DD HH:MM:SS for " + eventName)
         val = input()
         print("You entered the datetime " + val + " is this correct? (y/n)")
         prompt = input()
