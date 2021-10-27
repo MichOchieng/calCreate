@@ -11,7 +11,8 @@ from icalendar.cal import Todo
             # Add rrule to event
 
 class MyCalendar:
-    cal  = Calendar()
+    cal       = Calendar()
+    startTime = True
     
     def readFile(self):
         try:
@@ -73,7 +74,12 @@ class MyCalendar:
     
     
     def enterTime(self,eventName):
-        print("Enter event start/end datetime in the format YY/MM/DD HH:MM:SS for " + eventName)
+        if(self.startTime):
+            self.startTime = False
+            print("Enter event start datetime in the format YY/MM/DD HH:MM:SS for " + eventName)
+        else:
+            self.startTime = True
+            print("Enter event end datetime in the format YY/MM/DD HH:MM:SS for " + eventName)
         val = input()
         print("You entered the datetime " + val + " is this correct? (y/n)")
         prompt = input()
