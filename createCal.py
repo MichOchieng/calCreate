@@ -13,6 +13,7 @@ from icalendar.cal import Todo
 class MyCalendar:
     cal       = Calendar()
     startTime = True
+    EVENT_RECURRANCE  = ["daily","weekly","monthly","yearly"]
     
     def readFile(self):
         try:
@@ -65,9 +66,7 @@ class MyCalendar:
                     # Add time to event
                 event.add('dtstart', EVENT_STARTTIME)
                 event.add('dtend', EVENT_ENDTIME )
-
-                # Prompt for event recurrance
-
+                event.add('rrule', {'freq': self.selectRecurrance(EVENT_NAME)} ) # Allows user to select event recurrance
                 # Push event to calendar
                 self.cal.add_component(event)
                 event = Event() # Fixes issue of having one large event instead of seperate indivdual events
@@ -100,6 +99,19 @@ class MyCalendar:
             print(input + " isn't a valid input.")
             return False
 
+    def selectRecurrance(self,eventName):
+        # Prompt user for recurrance
+        print("How often would you like for the event " + eventName + " to be repeated? (daily,weekly,monthly,yearly)")
+        
+        # Save val
+        recurrance = input()
+
+        # Return val if given correct input
+        if(recurrance in self.EVENT_RECURRANCE):
+            return recurrance
+        else:
+            print("'" + recurrance + "' isn't an option for event recurrance, please enter an option from the given list.")
+            self.selectRecurrance(eventName)
 
     def createFile(self):
         try:
