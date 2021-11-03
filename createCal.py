@@ -1,14 +1,9 @@
 from icalendar import Calendar, Event
-from datetime import date, datetime
-import sys,os
+from datetime import datetime
+import sys
 
-from icalendar.cal import Todo
-
-# Todo    
-#     Add prompt for event times (Maybe have start time and duration instead of start time and end time?)
-#         Prompt each event
-#         After last event reached determine how long to repeat the events (over a week,month etc)
-            # Add rrule to event
+# Todo 
+#   Add more error handling for newer additions
 
 class MyCalendar:
     cal       = Calendar()
@@ -101,7 +96,7 @@ class MyCalendar:
 
     def selectRecurrance(self,eventName):
         # Prompt user for recurrance
-        print("How often would you like for the event " + eventName + " to be repeated? (daily,weekly,monthly,yearly)")
+        print("How often would you like for the event " + eventName.strip("/n") + " to be repeated? (daily,weekly,monthly,yearly)")
         
         # Save val
         recurrance = input()
