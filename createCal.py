@@ -61,7 +61,13 @@ class MyCalendar:
                     # Add time to event
                 event.add('dtstart', EVENT_STARTTIME)
                 event.add('dtend', EVENT_ENDTIME )
-                event.add('rrule', {'freq': self.selectRecurrance(EVENT_NAME)} ) # Allows user to select event recurrance
+                # Prompt for recurrance
+                print("Would you like to make " + EVENT_NAME + " a reoccuring event? (y/n)")
+                val = input()
+                if self.confirmInput(val):
+                    event.add('rrule', {'freq': self.selectRecurrance(EVENT_NAME)})  
+                else:
+                    pass
                 # Push event to calendar
                 self.cal.add_component(event)
                 event = Event() # Fixes issue of having one large event instead of seperate indivdual events
