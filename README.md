@@ -47,22 +47,25 @@ This program is ran from a command line interface, below is an example of the ar
     
     my@comp: python3 createCal.py parseFile.txt myCal
     Enter event start datetime in the format YY/MM/DD HH:MM:SS for CFUR's Jazz Jukebox
-    21/11/03 14:51:10
-    You entered the datetime 21/11/03 14:51:10 is this correct? (y/n)
+    21/11/03 12:00:00
+    You entered the datetime 21/11/03 12:00:00 is this correct? (y/n)
     y
     Enter event end datetime in the format YY/MM/DD HH:MM:SS for CFUR's Jazz Jukebox
-    21/11/03 15:51:10
-    You entered the datetime 21/11/03 15:51:10 is this correct? (y/n)
+    21/11/03 13:00:00
+    You entered the datetime 21/11/03 13:00:00 is this correct? (y/n)
+    y
+    Would you like to make CFUR's Jazz Jukebox a reoccuring event? (y/n)
     y
     How often would you like for the event CFUR's Jazz Jukebox to be repeated? (daily,weekly,monthly,yearly)
     daily
+
 **Example Output (myCal.ical)**
 
     BEGIN:VCALENDAR
     BEGIN:VEVENT
     SUMMARY:CFUR's Jazz Jukebox\n
-    DTSTART;VALUE=DATE-TIME:20211103T145110
-    DTEND;VALUE=DATE-TIME:20211103T155110
+    DTSTART;VALUE=DATE-TIME:20211103T120000
+    DTEND;VALUE=DATE-TIME:20211103T130000
     RRULE:FREQ=DAILY
     DESCRIPTION:The original rebel music. Improvised... WHAT!? Fusion... WHAT!
     ? Classic too… WHAT!? Jazz keeps on pushing the envelope. Even when othe
@@ -70,7 +73,4 @@ This program is ran from a command line interface, below is an example of the ar
     chill too. Cozy up to with your CFUR.\n
     END:VEVENT
     END:VCALENDAR
-
-
-
 
