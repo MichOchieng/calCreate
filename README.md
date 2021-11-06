@@ -32,7 +32,7 @@ The formatting of input files is very integral to how the readFile function will
     
 The readFile function will always use the first line of the file and the first line after a series of astrixes as the event name. Everything following the event name will be used as the event summary (more information on how this is done can be found in the comments of the readFile function).
 ## How to use
-This program is ran from a command line interface, below is an example of the arugments used to run the program.
+This program is ran from a command line interface, below is an example of the arguments used to run the program.
     
     my@comp: python3 calCreate.py <input file name>.txt <output ical file name>
 
