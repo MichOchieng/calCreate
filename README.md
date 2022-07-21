@@ -1,6 +1,6 @@
 
 # iCalendar Generator
-This is a program that will generate .ical files by parsing from an input text file with a specific format (specified below).
+This is a program that will generate .ical files by parsing from an input text file with a specific format (specified below). 
 
 ## Functions
 - readFile()
